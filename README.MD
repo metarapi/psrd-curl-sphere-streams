@@ -68,13 +68,15 @@ Per frame, the simulation runs as follows:
 1. **Build Field:** Evaluate the PSRD gradient on the cubemap faces using the `alpha`-controlled rotation.
 2. **Sample Field:** Sample the field at each particle's current direction and project it into tangent space.
 3. **Advect:** Advance the particle's direction using a sphere-constrained Euler step:
-$$
-\begin{aligned}
-d_{next} &= \text{normalize}\left( d + \left(\frac{\Delta t}{R}\right) \cdot v_{tangent} \right) \\
-p_{next} &= R \cdot d_{next}
-\end{aligned}
-$$
-4. **Construct Geometry:** Build ribbon edges from the tangent/side vectors and write them into a per-particle ring buffer.
+
+   $$
+   \begin{aligned}
+   d_{next} &= \text{normalize}\left( d + \left(\frac{\Delta t}{R}\right) \cdot v_{tangent} \right) \\
+   p_{next} &= R \cdot d_{next}
+   \end{aligned}
+   $$
+
+4. **Construct Geometry:** Build ribbon edges from the tangent/side vectors and write them into a per-particle ring buffer.vectors and write them into a per-particle ring buffer.
 5. **Render:** Draw instanced ribbon segments from that history. 
 
 **Alpha** is the animation dial inside PSRD: as $\alpha$ sweeps from $0$ to $2\pi$, the underlying noise gradient basis rotates smoothly and the flow pattern evolves continuously, giving the illusion of a complex, evolving fluid without evaluating a 4D noise function.
