@@ -9,7 +9,6 @@ export default defineConfig(({ command, mode }) => {
     plugins: [tailwindcss()],
     build: {
       outDir: 'dist',
-      cssMinify: 'esbuild',
     }
   }
 })

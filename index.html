@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="dark" data-theme="vscode">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,9 @@
 </head>
 
 <!-- Alpine State holds the exact default values from your Python app -->
-<body class="bg-base-100 text-base-content h-screen w-screen overflow-hidden flex flex-col antialiased" 
-  x-init="window.__simState = $data"
-  x-data="{
+
+<body class="bg-base-100 text-base-content h-screen w-screen overflow-hidden flex flex-col antialiased"
+  x-init="window.__simState = $data" x-data="{
     isPlaying: true,
     particleCount: 80000,
     ribbonWidth: 0.0005,
@@ -32,26 +33,32 @@
   <!-- Navbar -->
   <nav class="navbar bg-base-200 border-b border-base-300 z-10 flex-none px-4">
     <div class="flex-1 flex items-center gap-4">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.6745 16.9224L12.6233 10.378C12.2167 9.85117 11.4185 9.8611 11.0251 10.3979L6.45728 16.631C6.26893 16.888 5.96935 17.0398 5.65069 17.0398H3.79114C2.9635 17.0398 2.49412 16.0919 2.99583 15.4336L11.0224 4.90319C11.4206 4.38084 12.2056 4.37762 12.608 4.89668L20.9829 15.6987C21.4923 16.3558 21.024 17.3114 20.1926 17.3114H18.4661C18.1562 17.3114 17.8638 17.1677 17.6745 16.9224ZM12.5866 15.5924L14.8956 18.3593C15.439 19.0105 14.976 20 14.1278 20H9.74075C8.9164 20 8.4461 19.0586 8.94116 18.3994L11.0192 15.6325C11.4065 15.1169 12.1734 15.0972 12.5866 15.5924Z" fill="var(--color-primary)"/>
-      </svg>
       <div>
         <h1 class="text-lg font-bold leading-tight">Sphere PSRD Ribbon Particle Prototype</h1>
         <p class="text-xs text-base-content/60">PSRDnoise3 baked into cubemap-style 2D array.</p>
       </div>
     </div>
-    <div class="flex-none gap-2">
-      <span class="badge badge-soft" :class="isPlaying ? 'badge-success' : 'badge-neutral'" x-text="isPlaying ? 'Playing' : 'Paused'"></span>
-      <a href="https://github.com/metarapi/psrd-curl-sphere-streams" class="btn btn-ghost btn-sm">GitHub</a>
-    </div>
+    <a href="https://github.com/metarapi/psrd-curl-sphere-streams"
+      class="size-10 text-base-content hover:text-secondary transition-colors motion-safe:hover:scale-110 bg-transparent hover:bg-transparent">
+      <svg viewBox="0 0 16 16" class="size-10" fill="currentColor" aria-hidden="true">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+      0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+      -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+      -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18
+      1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+      1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.19
+      0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+      </svg>
+    </a>
+
   </nav>
 
   <!-- Main Layout Wrapper -->
   <div class="flex flex-1 overflow-hidden">
-    
+
     <!-- Left Sidebar (Replaces your QScrollArea) -->
     <aside class="w-[380px] bg-base-200 border-r border-base-300 flex-none overflow-y-auto p-4 space-y-6">
-      
+
       <!-- Playback Controls -->
       <div class="card bg-base-100 shadow-sm border border-base-300">
         <div class="card-body p-4 space-y-3">
@@ -59,7 +66,8 @@
           <div class="flex gap-2">
             <button class="btn btn-sm btn-primary flex-1" @click="isPlaying = true">Play</button>
             <button class="btn btn-sm btn-secondary flex-1" @click="isPlaying = false">Pause</button>
-            <button class="btn btn-sm btn-outline flex-1" @click="isPlaying = true; $dispatch('restart-sim')">Restart</button>
+            <button class="btn btn-sm btn-outline flex-1"
+              @click="isPlaying = true; $dispatch('restart-sim')">Restart</button>
           </div>
         </div>
       </div>
@@ -68,21 +76,25 @@
       <div class="card bg-base-100 shadow-sm border border-base-300">
         <div class="card-body p-4 space-y-4">
           <h2 class="card-title text-sm opacity-70 uppercase tracking-wider">Field</h2>
-          
+
           <!-- Noise Frequency -->
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Noise Frequency</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="noiseFrequency" min="0" max="12" step="0.01" class="range range-primary flex-1" />
-              <input type="number" x-model.number="noiseFrequency" min="0" max="12" step="0.01" class="input input-sm input-bordered w-20 text-right font-mono" />
+              <input type="range" x-model.number="noiseFrequency" min="0" max="12" step="0.01"
+                class="range range-primary flex-1" />
+              <input type="number" x-model.number="noiseFrequency" min="0" max="12" step="0.01"
+                class="input input-sm input-bordered w-20 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Noise Alpha</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="noiseAlpha" min="0" max="6.28319" step="0.01" class="range range-primary flex-1" />
-              <input type="number" x-model.number="noiseAlpha" min="0" max="6.28319" step="0.01" class="input input-sm input-bordered w-20 text-right font-mono" />
+              <input type="range" x-model.number="noiseAlpha" min="0" max="6.28319" step="0.01"
+                class="range range-primary flex-1" />
+              <input type="number" x-model.number="noiseAlpha" min="0" max="6.28319" step="0.01"
+                class="input input-sm input-bordered w-20 text-right font-mono" />
             </div>
           </div>
 
@@ -90,8 +102,10 @@
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Curl Strength</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="fieldStrength" min="0.05" max="3.0" step="0.01" class="range range-primary flex-1" />
-              <input type="number" x-model.number="fieldStrength" min="0.05" max="3.0" step="0.01" class="input input-sm input-bordered w-20 text-right font-mono" />
+              <input type="range" x-model.number="fieldStrength" min="0.05" max="3.0" step="0.01"
+                class="range range-primary flex-1" />
+              <input type="number" x-model.number="fieldStrength" min="0.05" max="3.0" step="0.01"
+                class="input input-sm input-bordered w-20 text-right font-mono" />
             </div>
           </div>
         </div>
@@ -101,13 +115,15 @@
       <div class="card bg-base-100 shadow-sm border border-base-300">
         <div class="card-body p-4 space-y-4">
           <h2 class="card-title text-sm opacity-70 uppercase tracking-wider">Simulation</h2>
-          
+
           <!-- Particle Count -->
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Particle Count</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="particleCount" min="1000" max="160000" step="1000" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="particleCount" min="1000" max="160000" step="1000" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="particleCount" min="1000" max="160000" step="1000"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="particleCount" min="1000" max="160000" step="1000"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
@@ -115,56 +131,70 @@
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Ribbon Width</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="ribbonWidth" min="0.0005" max="0.05" step="0.0005" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="ribbonWidth" min="0.0005" max="0.05" step="0.0005" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="ribbonWidth" min="0.0005" max="0.05" step="0.0005"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="ribbonWidth" min="0.0005" max="0.05" step="0.0005"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Speed Factor</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="speedFactor" min="0.05" max="2.5" step="0.01" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="speedFactor" min="0.05" max="2.5" step="0.01" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="speedFactor" min="0.05" max="2.5" step="0.01"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="speedFactor" min="0.05" max="2.5" step="0.01"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Lifetime Min (s)</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="lifetimeMin" min="0.1" max="30" step="0.1" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="lifetimeMin" min="0.1" max="30" step="0.1" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="lifetimeMin" min="0.1" max="30" step="0.1"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="lifetimeMin" min="0.1" max="30" step="0.1"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Lifetime Max (s)</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="lifetimeMax" min="0.1" max="30" step="0.1" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="lifetimeMax" min="0.1" max="30" step="0.1" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="lifetimeMax" min="0.1" max="30" step="0.1"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="lifetimeMax" min="0.1" max="30" step="0.1"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Decay Time (s)</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="decayTime" min="0.1" max="8" step="0.05" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="decayTime" min="0.1" max="8" step="0.05" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="decayTime" min="0.1" max="8" step="0.05"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="decayTime" min="0.1" max="8" step="0.05"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Alpha Falloff</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="alphaFalloff" min="0.1" max="6" step="0.05" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="alphaFalloff" min="0.1" max="6" step="0.05" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="alphaFalloff" min="0.1" max="6" step="0.05"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="alphaFalloff" min="0.1" max="6" step="0.05"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
 
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Fade Exponent</span></label>
             <div class="flex gap-2 items-center">
-              <input type="range" x-model.number="decayExponent" min="0.25" max="4" step="0.05" class="range range-secondary flex-1" />
-              <input type="number" x-model.number="decayExponent" min="0.25" max="4" step="0.05" class="input input-sm input-bordered w-24 text-right font-mono" />
+              <input type="range" x-model.number="decayExponent" min="0.25" max="4" step="0.05"
+                class="range range-secondary flex-1" />
+              <input type="number" x-model.number="decayExponent" min="0.25" max="4" step="0.05"
+                class="input input-sm input-bordered w-24 text-right font-mono" />
             </div>
           </div>
         </div>
@@ -174,7 +204,7 @@
       <div class="card bg-base-100 shadow-sm border border-base-300">
         <div class="card-body p-4 space-y-4">
           <h2 class="card-title text-sm opacity-70 uppercase tracking-wider">Display</h2>
-          
+
           <!-- Blend Mode Dropdown -->
           <div class="form-control">
             <label class="label pt-0"><span class="label-text">Blend Mode</span></label>
@@ -187,7 +217,8 @@
           <!-- Toggles -->
 
           <div class="flex items-center gap-2">
-            <input type="checkbox" id="shrinkWidthToggle" x-model="shrinkWidthDying" class="switch switch-primary switch-sm" />
+            <input type="checkbox" id="shrinkWidthToggle" x-model="shrinkWidthDying"
+              class="switch switch-primary switch-sm" />
             <label class="label-text cursor-pointer" for="shrinkWidthToggle">Shrink width while dying</label>
           </div>
 
@@ -200,7 +231,7 @@
     <main class="flex-1 bg-black relative flex items-center justify-center">
       <!-- We set width/height to 100% and absolute inset-0 to prevent layout shifting -->
       <canvas id="webgpu-canvas" class="absolute inset-0 w-full h-full block" x-ref="canvas"></canvas>
-      
+
       <!-- Optional overlay for stats (Replaces your status/info label) -->
       <div class="absolute bottom-4 left-4 pointer-events-none text-white/50 font-mono text-xs z-10">
         <p x-text="`Particles: ${particleCount}`"></p>
@@ -212,4 +243,5 @@
 
   <script type="module" src="/src/main.js"></script>
 </body>
+
 </html>
