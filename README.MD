@@ -69,12 +69,12 @@ Per frame, the simulation runs as follows:
 2. **Sample Field:** Sample the field at each particle's current direction and project it into tangent space.
 3. **Advect:** Advance the particle's direction using a sphere-constrained Euler step:
 
-   $$
+   ```math
    \begin{aligned}
    d_{next} &= \text{normalize}\left( d + \left(\frac{\Delta t}{R}\right) \cdot v_{tangent} \right) \\
    p_{next} &= R \cdot d_{next}
    \end{aligned}
-   $$
+   ```
 
 4. **Construct Geometry:** Build ribbon edges from the tangent/side vectors and write them into a per-particle ring buffer.vectors and write them into a per-particle ring buffer.
 5. **Render:** Draw instanced ribbon segments from that history. 
