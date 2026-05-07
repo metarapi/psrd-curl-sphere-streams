@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@plugin "@iconify/tailwind4";
+/* 
+  IMPORTANT: Use explicit JS entry for FlyonUI.
+
+  Tailwind v4 (@tailwindcss/vite) uses Vite’s browser-aware resolver,
+  which prefers the "browser" field in flyonui’s package.json.
+  That resolves "flyonui" → flyonui.css instead of index.js,
+  causing Node to try loading CSS as a module ("Unknown file extension .css").
+
+  Workaround: explicitly point to the plugin entry.
+  Do NOT change this back to @plugin "flyonui" unless the package fixes its exports.
+
+  Affects Tailwind v4 + @tailwindcss/vite >= 4.2.x with flyonui 2.4.x
+*/
+@plugin "flyonui/index.js" {
+  themes: light --default, dark --prefersdark, vscode;
+};
+
+@theme {
+  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.range::-webkit-slider-thumb {
+  transform: translateY(-50%) !important;
+}
